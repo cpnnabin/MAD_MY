@@ -1,68 +1,11 @@
-// import 'package:flutter/material.dart';
-//
-// void main() {
-//   runApp(const MyApp());   // main function return gardaina
-// }
-//
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-//
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(title: 'Modern Login', home: const HomePage());
-//
-//   }
-// }
-//
-// class HomePage extends StatelessWidget {
-//   const HomePage({super.key});
-//
-//   @override
-//   Widget build(BuildContext context){
-//     return Scaffold(
-//       appBar: AppBar(title: Text("Home"),
-//       backgroundColor: Colors.green,),
-//       body: Column(
-//         children:[
-//           Text("Hello World"),
-//           Text("This is Text"),
-//
-//           Row(
-//             mainAxisAlignment:MainAxisAlignment.spaceEvenly, children: [
-//               ElevatedButton(onPressed: (){}, child: Text("Click Me!")),
-//               ElevatedButton(onPressed: (){}, child: Text("Click Me!")),
-//               ElevatedButton(onPressed: (){}, child: Text("Click Me!")),
-//             ]
-//           ),
-//     Text("Hello World!"),
-//     Text("This is Text!", style: TextStyle(fontStyle: FontStyle.italic)),
-//     Text("This is Text!", style: TextStyle(fontWeight: FontWeight.bold)),
-//     Text("This is Text!", style: TextStyle(fontSize: 120)),
-//
-//           SizedBox(height: 10),
-//           TextField(
-//           decoration: InputDecoration(
-//             border: OutlineInputBorder(),
-//             labelText: "Email"
-//           ),
-//           ),TextField(
-//       decoration: InputDecoration(
-//           border: OutlineInputBorder(),
-//           labelText: "password"
-//       ),
-//       obscureText: true,
-//           ),
-//           TextButton(onPressed: (){}, child:Text("Click Here!"))
-//
-//     ],
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'screens/login_screen.dart';
+import 'screens/register_screen.dart';
+import 'screens/button_gallery_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/details_screen.dart';
+import 'screens/settings_screen.dart';
+import 'screens/add_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -74,10 +17,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Modern Login',
+      title: 'Flutter Buttons & Navigation',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.green),
-      home: const LoginPage(),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green,
+          brightness: Brightness.light,
+        ),
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          elevation: 0,
+        ),
+      ),
+      // Define initial route
+      initialRoute: '/',
+      // Define named routes table
+      routes: {
+        '/': (context) => const LoginScreen(),
+        '/buttons': (context) => const ButtonGalleryScreen(),
+        '/profile': (context) => const ProfileScreen(),
+        '/details': (context) => const DetailsScreen(),
+        '/settings': (context) => const SettingsScreen(),
+        '/add': (context) => const AddScreen(),
+        '/register': (context) => const RegisterScreen(),
+      },
     );
   }
 }

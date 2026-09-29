@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/button_gallery_screen.dart';
 import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,16 +11,39 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController(text: "nabin.dhakal@example.com");
+  final _passwordController = TextEditingController(text: "password123");
   bool _hidePassword = true;
 
   void _login() {
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Login successful!")),
+        const SnackBar(
+          content: Text("Login successful! Navigating..."),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 1),
+        ),
       );
+
+      // Navigate to Button Gallery Screen using pushReplacementNamed (or direct MaterialPageRoute fallback)
+      try {
+        Navigator.pushReplacementNamed(context, '/buttons');
+      } catch (_) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ButtonGalleryScreen(),
+          ),
+        );
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -49,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                       prefixIcon: Icon(Icons.person),
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
+                      if (value == null || value.trim().isEmpty) {
                         return "Please enter email or username";
                       }
                       return null;
@@ -107,7 +131,14 @@ class _LoginPageState extends State<LoginPage> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: _login,
-                      child: const Text("Login"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                      ),
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
